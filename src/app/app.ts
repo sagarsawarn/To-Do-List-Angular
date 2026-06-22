@@ -8,10 +8,14 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   imports: [RouterOutlet, FormsModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
   protected readonly title = signal('Todo_List');
+  username = '';
+  password = '';
+  loggedIn = false;
+  loginError = '';
   task = "";
   dueDate = "";
   taskList: { id: number, task: string, completed: boolean, dueDate: string }[] = [];
@@ -27,6 +31,22 @@ export class App {
     this.task = "";
     this.dueDate = "";
     this.showError = false;
+  }
+
+  login() {
+    this.loginError = '';
+    if (this.username.trim() === '' || this.password.trim() === '') {
+      this.loginError = 'Username and password are required';
+      return;
+    }
+    // Simple demo authentication: accept any non-empty credentials
+    this.loggedIn = true;
+    this.username = '';
+    this.password = '';
+  }
+
+  logout() {
+    this.loggedIn = false;
   }
   
   completeTask(id: number) {

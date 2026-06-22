@@ -1,31 +1,48 @@
-<h1 style="text-align: center;">Todo_List</h1>
-
-<input type="text" placeholder="Enter Task" [(ngModel)]="task">
-@if(showError) {
-  <div style="color: red; margin-top: 5px;">Field is required</div>
-}
-<br><br>
-<button style="padding: 8px 25px; font-size: 16px;cursor: pointer; border-radius: 5px; " (click)="addTask()">Add Task</button>
-<input type="date" [(ngModel)]="dueDate">
-<hr>
-
-<!-- <h1>{{task}}</h1> -->
-
-@for(task of taskList; track task.id){
-  <div class="taskList">
-    <div class="taskContent">
-      <span class="taskId">{{task.id}}</span>
-      <div style="flex: 1;">
-        <span class="taskText" [style.text-decoration]="task.completed ? 'line-through' : 'none'">{{task.task}}</span>
-        @if(task.dueDate) {
-          <div style="font-size: 14px; color: #888; margin-top: 4px;">Due: {{task.dueDate}}</div>
-        }
-      </div>
-    </div>
-    <div class="taskButtons">
-      <button  style="background-color: green; color: white; padding: 5px 18px; font-size: 16px;cursor: pointer; border-radius: 5px;  transition: background-color 0.3s ease, transform 0.2s ease;" (click)="completeTask(task.id)">{{ task.completed ? 'Undo' : 'Complete' }}</button>
-      <button  style="background-color: rgb(181, 179, 179); color: white; padding: 5px 18px; font-size: 16px;cursor: pointer; border-radius: 5px;" (click)="editTask(task.id)">{{ editingId === task.id ? 'Save' : 'Edit' }}</button>
-      <button  style="background-color: red;color: white; padding: 5px 18px; font-size: 16px;cursor: pointer; border-radius: 5px;" (click)="deleteTask(task.id)">Delete</button>
+@if(!loggedIn) {
+  <div style="max-width: 400px; margin: 60px auto; padding: 24px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+    <h2 style="text-align:center; margin-bottom: 12px;">Login</h2>
+    <input type="text" placeholder="Username" [(ngModel)]="username" style="width:100%; padding:8px; margin-bottom:8px;" />
+    <input type="password" placeholder="Password" [(ngModel)]="password" style="width:100%; padding:8px; margin-bottom:8px;" />
+    @if(loginError) {
+      <div style="color: red; margin-bottom:8px;">{{loginError}}</div>
+    }
+    <div style="text-align:center;">
+      <button style="padding: 8px 25px; font-size: 16px; cursor: pointer; border-radius: 5px;" (click)="login()">Login</button>
     </div>
   </div>
+}
+
+@if(loggedIn) {
+  <div style="display:flex; align-items:center; justify-content:space-between;">
+    <h1 style="text-align: center;">Todo_List</h1>
+    <button style="padding:6px 12px; margin-left:12px;" (click)="logout()">Logout</button>
+  </div>
+
+  <input type="text" placeholder="Enter Task" [(ngModel)]="task">
+  @if(showError) {
+    <div style="color: red; margin-top: 5px;">Field is required</div>
+  }
+  <br><br>
+  <button style="padding: 8px 25px; font-size: 16px;cursor: pointer; border-radius: 5px; " (click)="addTask()">Add Task</button>
+  <input type="date" [(ngModel)]="dueDate">
+  <hr>
+
+  @for(task of taskList; track task.id){
+    <div class="taskList">
+      <div class="taskContent">
+        <span class="taskId">{{task.id}}</span>
+        <div style="flex: 1;">
+          <span class="taskText" [style.text-decoration]="task.completed ? 'line-through' : 'none'">{{task.task}}</span>
+          @if(task.dueDate) {
+            <div style="font-size: 14px; color: #888; margin-top: 4px;">Due: {{task.dueDate}}</div>
+          }
+        </div>
+      </div>
+      <div class="taskButtons">
+        <button  style="background-color: green; color: white; padding: 5px 18px; font-size: 16px;cursor: pointer; border-radius: 5px;  transition: background-color 0.3s ease, transform 0.2s ease;" (click)="completeTask(task.id)">{{ task.completed ? 'Undo' : 'Complete' }}</button>
+        <button  style="background-color: rgb(181, 179, 179); color: white; padding: 5px 18px; font-size: 16px;cursor: pointer; border-radius: 5px;" (click)="editTask(task.id)">{{ editingId === task.id ? 'Save' : 'Edit' }}</button>
+        <button  style="background-color: red;color: white; padding: 5px 18px; font-size: 16px;cursor: pointer; border-radius: 5px;" (click)="deleteTask(task.id)">Delete</button>
+      </div>
+    </div>
+  }
 }
