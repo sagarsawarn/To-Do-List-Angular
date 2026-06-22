@@ -1,5 +1,50 @@
-.taskList{
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+input[type="date"] {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.taskList {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     list-style: none;
+    margin-bottom: 10px;
 }
+
+.taskContent {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex: 1;
+}
+
+.taskId {
+    font-weight: bold;
+    min-width: 30px;
+    font-size: 25px;
+}
+
+.taskText {
+    flex: 1;
+    font-size: 25px;
+}
+
+.taskButtons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
